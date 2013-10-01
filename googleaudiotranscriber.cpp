@@ -25,7 +25,7 @@ void GoogleAudioTranscriber::transcribeAudioFile(QString filename)
     QByteArray data = file.readAll();
     file.close();
 
-    qDebug() << Q_FUNC_INFO << "will HTTP post with" << data.length() << "bytes:" << url;
+    qDebug() << Q_FUNC_INFO << "will HTTP post with" << data.length() << "bytes:" << url << "from" << filename;
     _netManager->post(request,data);
 
 
@@ -59,7 +59,7 @@ void GoogleAudioTranscriber::networkRequestFinished(QNetworkReply *reply)
         QString utterance = hypothesis["utterance"].toString();
         double confidence = hypothesis["confidence"].toDouble();
         qDebug() << "hypothesis" << utterance << "@" << confidence;
-        if(confidence > 0.80) emit transcribeCompleted(utterance);
+        if(confidence > 0.50) emit transcribeCompleted(utterance);
     }
 
 }

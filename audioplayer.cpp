@@ -21,5 +21,5 @@ void AudioPlayer::speak(QString text, int profile) {
     QStringList args;
     args << QString::number(profile);
     args << QString("\"%1\"").arg(text);
-    p->start("/home/dankrusi/Code/ExtPlane-ATC/scripts/tts-linux.sh",args);
+    p->start("/home/flightsim/ExtPlane-ATC/scripts/tts-linux.sh",args);
 }

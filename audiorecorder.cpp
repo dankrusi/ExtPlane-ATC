@@ -6,7 +6,7 @@ AudioRecorder::AudioRecorder(QObject *parent) :
     QObject(parent)
 {
     _recordProcess = NULL;
-    _outputFile = "/home/dankrusi/Code/ExtPlane-ATC/out/out.flac";
+    _outputFile = "/home/flightsim/ExtPlane-ATC/out/out.flac";
 }
 
 void AudioRecorder::beginRecording()
@@ -25,7 +25,7 @@ void AudioRecorder::beginRecording()
 
 
     _recordProcess = new QProcess(this);
-    _recordProcess->setStandardOutputFile("/home/dankrusi/Code/ExtPlane-ATC/out/out.wav");
+    _recordProcess->setStandardOutputFile("/home/flightsim/ExtPlane-ATC/out/out.wav");
     _recordProcess->start(recordProgram,recordArguments);
 
 
@@ -48,7 +48,7 @@ void AudioRecorder::stopRecording()
     convertArguments << "-f";
     convertArguments << "-8";
     convertArguments << "-f" << "-o" << _outputFile;
-    convertArguments << "/home/dankrusi/Code/ExtPlane-ATC/out/out.wav";
+    convertArguments << "/home/flightsim/ExtPlane-ATC/out/out.wav";
     //convertArguments << "--sample-rate=44100";
     convertProcess.execute(convertProgram,convertArguments);
 

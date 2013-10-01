@@ -29,9 +29,9 @@ void Widget::on_pushButton_pressed() {
 
 void Widget::on_pushButton_released() {
 
-    _player->speak("N 5 4 3 2 request for take off. Clear to take off, head to runway 34.");
+    //_player->speak("N 5 4 3 2 request for take off. Clear to take off, head to runway 34.");
 
-    return;
+    //return;
     QTimer::singleShot(800,this,SLOT(on_pushButton_released_delayed()));
 }
 
@@ -42,6 +42,7 @@ void Widget::on_pushButton_released_delayed() {
 
 void Widget::transcribeCompleted(QString result) {
     ui->label->setText(result);
+    _player->speak(result);
 
 
 }
