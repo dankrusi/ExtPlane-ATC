@@ -1,0 +1,1 @@
+# Please install Flac from http://sourceforge.net/projects/flac/files/flac-darwin/flac-1.2.1-darwin-ppc%2Bi386/flac-1.2.1.dmg/download
