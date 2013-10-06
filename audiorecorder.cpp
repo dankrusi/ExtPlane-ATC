@@ -2,6 +2,8 @@
 
 #include <QDebug>
 
+#include "util.h"
+
 AudioRecorder::AudioRecorder(QObject *parent) :
     QObject(parent)
 {
@@ -19,10 +21,19 @@ void AudioRecorder::beginRecording()
         delete _recordProcess;
     }
 
-    QString recordProgram = "arecord";
+    QString recordProgram;
     QStringList recordArguments;
-    recordArguments << "-f" << "cd" << "-t" << "wav";
 
+    if(Util::GetPlatform() == PLATFORM_LINUX) {
+        recordProgram = "arecord";
+        recordArguments << "-f" << "cd" << "-t" << "wav";
+    } else if(Util::GetPlatform() == PLATFORM_OSX) {
+        qFatal("OSX not yet supported. Sorry.");
+    } else if(Util::GetPlatform() == PLATFORM_WINDOWS) {
+        qFatal("Windows not yet supported. Sorry.");
+    } else {
+        qFatal("Unknown platform.");
+    }
 
     _recordProcess = new QProcess(this);
     _recordProcess->setStandardOutputFile("/home/dankrusi/Code/ExtPlane-ATC/out/out.wav");

@@ -24,7 +24,7 @@ Widget::~Widget() {
 }
 
 void Widget::on_pushButton_pressed() {
-    _recorder->beginRecording();
+    //_recorder->beginRecording();
 }
 
 void Widget::on_pushButton_released() {
