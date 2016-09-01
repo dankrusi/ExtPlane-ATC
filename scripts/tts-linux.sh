@@ -1,27 +1,27 @@
-VOICE=voice_rab_diphone
+VOICE=voice_kal_diphone
 TEMPO=1.7
 PITCH=500
 
 PROFILE=$1
 
 if [ $PROFILE -eq 1 ]; then
-	VOICE=voice_rab_diphone
+	VOICE=voice_kal_diphone
 	TEMPO=1.7
 	PITCH=500
 elif [ $PROFILE -eq 2 ]; then
-	VOICE=voice_rab_diphone
+	VOICE=voice_kal_diphone
 	TEMPO=1.6
 	PITCH=300
 elif [ $PROFILE -eq 3 ]; then
-	VOICE=voice_rab_diphone
+	VOICE=voice_kal_diphone
 	TEMPO=1.8
 	PITCH=700
 elif [ $PROFILE -eq 4 ]; then
-	VOICE=voice_rab_diphone
+	VOICE=voice_kal_diphone
 	TEMPO=1.7
 	PITCH=400
 elif [ $PROFILE -eq 5 ]; then
-	VOICE=voice_rab_diphone
+	VOICE=voice_kal_diphone
 	TEMPO=1.9
 	PITCH=200
 fi

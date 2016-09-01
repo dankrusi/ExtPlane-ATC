@@ -3,11 +3,13 @@
 
 #include <QObject>
 
+#include "settings.h"
+
 class AudioPlayer : public QObject
 {
     Q_OBJECT
 public:
-    explicit AudioPlayer(QObject *parent = 0);
+    explicit AudioPlayer(QObject *parent, Settings *appSettings);
     
 signals:
     
@@ -17,6 +19,7 @@ public slots:
 
 private:
     int _maxProfiles;
+    Settings *_appSettings;
     
 };
 

@@ -6,8 +6,8 @@
 
 #include "json.h"
 
-GoogleAudioTranscriber::GoogleAudioTranscriber(QObject *parent) :
-    AudioTranscriber(parent)
+GoogleAudioTranscriber::GoogleAudioTranscriber(QObject *parent, Settings *appSettings) :
+    AudioTranscriber(parent,appSettings)
 {
     // Setup network manager
     _netManager = new QNetworkAccessManager(this);

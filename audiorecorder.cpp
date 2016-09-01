@@ -6,11 +6,12 @@
 
 #include "util.h"
 
-AudioRecorder::AudioRecorder(QObject *parent) :
+AudioRecorder::AudioRecorder(QObject *parent, Settings *appSettings) :
     QObject(parent)
 {
+    _appSettings = appSettings;
     _recordProcess = NULL;
-    _outputFile = Util::GetLocalFile("out","out.flac");
+    _outputFile = _appSettings->getLocalFile("out","out.flac");
 }
 
 void AudioRecorder::beginRecording()
@@ -30,10 +31,10 @@ void AudioRecorder::beginRecording()
     if(Util::GetPlatform() == PLATFORM_LINUX) {
         recordProgram = "arecord";
         recordArguments << "-f" << "cd" << "-t" << "wav";
-        _recordProcess->setStandardOutputFile(Util::GetLocalFile("out","out16.wav"));
+        _recordProcess->setStandardOutputFile(_appSettings->getLocalFile("out","out16.wav"));
     } else if(Util::GetPlatform() == PLATFORM_OSX) {
-        recordProgram = Util::GetLocalFile("scripts","sox-osx");
-        recordArguments << "-d" << Util::GetLocalFile("out","out32.wav");
+        recordProgram = _appSettings->getLocalFile("scripts","sox-osx");
+        recordArguments << "-d" << _appSettings->getLocalFile("out","out32.wav");
     } else if(Util::GetPlatform() == PLATFORM_WINDOWS) {
         qFatal("Windows not yet supported. Sorry.");
     } else {
@@ -59,12 +60,12 @@ void AudioRecorder::stopRecording()
     if(Util::GetPlatform() == PLATFORM_OSX) {
         qDebug() << "Converting to 16bps...";
         QProcess convert16Process;
-        QString convert16Program = Util::GetLocalFile("scripts","sox-osx");
+        QString convert16Program = _appSettings->getLocalFile("scripts","sox-osx");
         QStringList convert16Arguments;
-        convert16Arguments << Util::GetLocalFile("out","out32.wav");
+        convert16Arguments << _appSettings->getLocalFile("out","out32.wav");
         convert16Arguments << "-b";
         convert16Arguments << "16";
-        convert16Arguments << Util::GetLocalFile("out","out16.wav");
+        convert16Arguments << _appSettings->getLocalFile("out","out16.wav");
         convert16Process.execute(convert16Program,convert16Arguments);
     }
 
@@ -77,7 +78,7 @@ void AudioRecorder::stopRecording()
     if(Util::GetPlatform() == PLATFORM_LINUX) {
         convertFlacProgram = "flac";
     } else if(Util::GetPlatform() == PLATFORM_OSX) {
-        convertFlacProgram = Util::GetLocalFile("scripts","flac-osx");
+        convertFlacProgram = _appSettings->getLocalFile("scripts","flac-osx");
     } else if(Util::GetPlatform() == PLATFORM_WINDOWS) {
         qFatal("Windows not yet supported. Sorry.");
     } else {
@@ -87,7 +88,7 @@ void AudioRecorder::stopRecording()
     //convertFlacArguments << "-f";
     //convertFlacArguments << "-8";
     convertFlacArguments << "-f" << "-o" << _outputFile;
-    convertFlacArguments << Util::GetLocalFile("out","out16.wav");
+    convertFlacArguments << _appSettings->getLocalFile("out","out16.wav");
     convertFlacProcess.execute(convertFlacProgram,convertFlacArguments);
     qDebug() << "Conversion done.";
 

@@ -4,15 +4,17 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network widgets
+CONFIG += qt
+QT += core gui network widgets
 
-TARGET = ExtPlane-ATC
+TARGET = extplane-atc
 TEMPLATE = app
 
 OBJECTS_DIR = build
 MOC_DIR = build
 UI_DIR = build
 INCLUDEPATH += build
+DESTDIR = bin
 
 # Place ExtPlane plugin to a directory next to or inside build directory, or
 # define the directory here:
@@ -51,7 +53,9 @@ SOURCES += \
     googleaudiotranscriber.cpp \
     json.cpp \
     audioplayer.cpp \
-    util.cpp
+    util.cpp \
+    settings.cpp \
+    dialogs/settingsdialog.cpp
 
 HEADERS  += \
     $$EXTPLANE_CLIENT_PATH/extplaneconnection.h \
@@ -68,16 +72,24 @@ HEADERS  += \
     googleaudiotranscriber.h \
     json.h \
     audioplayer.h \
-    util.h
+    util.h \
+    settings.h \
+    dialogs/settingsdialog.h \
+    util/console.h
 
 FORMS    += widget.ui \
-    settings.ui
+    settingsdialog.ui
 
 
 OTHER_FILES += README.md \
     scripts/tts-linux.sh \
     scripts/tts-osx.sh
 
+copydata.commands = $(COPY_DIR) $$PWD/scripts $$OUT_PWD/bin
+first.depends = $(first) copydata
+export(first.depends)
+export(copydata.commands)
+QMAKE_EXTRA_TARGETS += first copydata
 
 macx {
     copyfiles.commands += cp -Rf ../$${TARGET}/scripts ./$${TARGET}.app/Contents/MacOS/

@@ -11,7 +11,7 @@ class GoogleAudioTranscriber : public AudioTranscriber
 {
     Q_OBJECT
 public:
-    explicit GoogleAudioTranscriber(QObject *parent = 0);
+    explicit GoogleAudioTranscriber(QObject *parent, Settings *appSettings);
     virtual void transcribeAudioFile(QString filename);
     
 signals:

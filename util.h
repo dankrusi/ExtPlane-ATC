@@ -9,6 +9,8 @@
 #define PLATFORM_OSX 2
 #define PLATFORM_WINDOWS 3
 
+class Settings;
+
 class Util
 {
 public:
@@ -27,16 +29,11 @@ public:
         #endif
     }
 
-    static QString GetLocalDir(QString dirName) {
+    static QString GetLocalAppDir(QString dirName) {
         QString dirPath = QApplication::applicationDirPath() + QDir::separator() + dirName;
         QDir dir(dirPath);
         if(!dir.exists()) dir.mkdir(dirPath);
         return dirPath;
-    }
-
-    static QString GetLocalFile(QString dirName, QString fileName) {
-        QString filePath = Util::GetLocalDir(dirName) + QDir::separator() + fileName;
-        return filePath;
     }
 };
 

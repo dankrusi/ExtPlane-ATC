@@ -7,9 +7,10 @@
 
 #include "util.h"
 
-AudioPlayer::AudioPlayer(QObject *parent) :
+AudioPlayer::AudioPlayer(QObject *parent, Settings *appSettings) :
     QObject(parent)
 {
+    _appSettings = appSettings;
     _maxProfiles = 5;
 }
 
@@ -28,10 +29,10 @@ void AudioPlayer::speak(QString text, int profile) {
 
     if(Util::GetPlatform() == PLATFORM_LINUX) {
         processName = "sh";
-        scriptPath = Util::GetLocalFile("scripts","tts-linux.sh");
+        scriptPath = _appSettings->getLocalFile("scripts","tts-linux.sh");
     } else if(Util::GetPlatform() == PLATFORM_OSX) {
         processName = "sh";
-        scriptPath = Util::GetLocalFile("scripts","tts-osx.sh");
+        scriptPath = _appSettings->getLocalFile("scripts","tts-osx.sh");
     } else if(Util::GetPlatform() == PLATFORM_WINDOWS) {
         qFatal("Windows not yet supported. Sorry.");
     } else {
